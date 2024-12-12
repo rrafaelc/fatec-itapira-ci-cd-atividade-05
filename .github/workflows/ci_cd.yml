@@ -29,7 +29,6 @@ jobs:
     - name: Generate artifact
       if: success()
       run: |
-        cd src
         zip -r analise_texto.zip .
 
     - name: Upload artifact
