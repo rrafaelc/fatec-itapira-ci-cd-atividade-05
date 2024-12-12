@@ -1,0 +1,39 @@
+name: Analise de texto CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.8'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pytest
+        pip install -r requirements.txt
+
+    - name: Run tests
+      run: |
+        pytest src/test_analise_texto.py
+
+    - name: Generate artifact
+      if: success()
+      run: |
+        cd src
+        zip -r analise_texto.zip .
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: analise_texto-artifact  
+        path: analise_texto.zip     
