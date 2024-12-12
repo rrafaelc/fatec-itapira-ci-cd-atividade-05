@@ -24,7 +24,7 @@ jobs:
 
     - name: Run tests
       run: |
-        pytest src/test_analise_texto.py
+        pytest test_analise_texto.py
 
     - name: Generate artifact
       if: success()
